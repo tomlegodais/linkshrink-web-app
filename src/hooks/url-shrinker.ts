@@ -10,7 +10,6 @@ type UseUrlShrinker = (
 export const useUrlShrinker: UseUrlShrinker = (setShrunkenUrl, fetchUrls) => {
     const {triggerNotification} = useNotification();
     return async (longUrl?: string) => {
-        console.log(`longUrl: ${longUrl}`);
         if (!longUrl) {
             triggerNotification("Please enter a valid URL", "error");
             return;
