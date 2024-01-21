@@ -23,6 +23,35 @@ body {
     animation: fadeOut 0.5s ease-out forwards;
 }
 
+.dots-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: fade 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.error-container {
+    width: 85%;
+    margin: 0 auto;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -38,5 +67,14 @@ body {
     }
     to {
         opacity: 0;
+    }
+}
+
+@keyframes fade {
+    0%, 80%, 100% {
+        opacity: 0.2;
+    }
+    40% {
+        opacity: 1;
     }
 }
