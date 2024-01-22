@@ -3,11 +3,12 @@ import {useNotification} from "@/context/notification.context";
 import {shrinkUrl} from "@/services/url-service";
 
 type UseUrlShrinker = (
+    apiBaseUrl: string,
     setShrunkenUrl: React.Dispatch<React.SetStateAction<string>>,
     fetchUrls: () => Promise<void>,
 ) => (longUrl?: string) => Promise<void>;
 
-export const useUrlShrinker: UseUrlShrinker = (setShrunkenUrl, fetchUrls) => {
+export const useUrlShrinker: UseUrlShrinker = (apiBaseUrl, setShrunkenUrl, fetchUrls) => {
     const {triggerNotification} = useNotification();
     return async (longUrl?: string) => {
         if (!longUrl) {
@@ -15,7 +16,7 @@ export const useUrlShrinker: UseUrlShrinker = (setShrunkenUrl, fetchUrls) => {
             return;
         }
 
-        const result = await shrinkUrl(longUrl);
+        const result = await shrinkUrl(apiBaseUrl, longUrl);
         if (result.success) {
             setShrunkenUrl(result.shortUrl!);
             triggerNotification("URL successfully shrunk!", "success");

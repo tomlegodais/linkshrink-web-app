@@ -1,0 +1,12 @@
+version: '3.8'
+networks:
+  default:
+    name: linkshrink-network
+    external: true
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - API_BASE_URL=http://127.0.0.1:8000

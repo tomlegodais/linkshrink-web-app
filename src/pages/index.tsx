@@ -8,13 +8,18 @@ import UrlInput from "@/components/url-input";
 import validator from 'validator';
 import {useUrlShrinker} from "@/hooks/url-shrinker";
 import {useCurrentUrl} from "@/hooks/current-url";
+import {GetServerSideProps} from "next";
 
-export default function HomePage() {
-    const [urls, fetchUrls] = useFetchUrls();
+interface HomePageProps {
+    apiBaseUrl: string;
+}
+
+export default function HomePage({apiBaseUrl}: HomePageProps) {
+    const [urls, fetchUrls] = useFetchUrls(apiBaseUrl);
     const urlRef = useRef<HTMLInputElement>(null);
 
     const [shrunkenUrl, setShrunkenUrl] = useState<string>("");
-    const onShrinkClick = useUrlShrinker(setShrunkenUrl, fetchUrls);
+    const onShrinkClick = useUrlShrinker(apiBaseUrl, setShrunkenUrl, fetchUrls);
 
     const [isValidUrl, setIsValidUrl] = useState<boolean>(false);
     const currentUrl = useCurrentUrl();
@@ -61,3 +66,11 @@ export default function HomePage() {
         </div>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    return {
+        props: {
+            apiBaseUrl: process.env.API_BASE_URL
+        }
+    }
+};

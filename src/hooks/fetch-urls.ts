@@ -1,19 +1,19 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import Url from "@/models/url.model";
 import {findAll} from "@/services/url-service";
 
-export const useFetchUrls = (): [Url[], () => Promise<void>] => {
+export const useFetchUrls = (apiBaseUrl: string): [Url[], () => Promise<void>] => {
     const [urls, setUrls] = useState<Url[]>([]);
-    const fetchUrls = async (): Promise<void> => {
-        const urls = await findAll();
-        setUrls(urls);
-    };
+    const fetchUrls = useCallback(async (): Promise<void> => {
+        const fetchedUrls = await findAll(apiBaseUrl);
+        setUrls(fetchedUrls);
+    }, [apiBaseUrl]);
 
     useEffect(() => {
         (async () => {
             await fetchUrls();
         })();
-    }, []);
+    }, [fetchUrls]);
 
     return [urls, fetchUrls];
 };
