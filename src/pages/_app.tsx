@@ -9,7 +9,10 @@ function App({Component, pageProps}: AppProps) {
         <NotificationProvider>
             <Head>
                 <title>LinkShrink</title>
-                <meta name="description" content="LinkShrink"/>
+                <meta name="description" content="LinkShrink: A simple, efficient way to shorten URLs."/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <meta charSet="UTF-8"/>
+                <meta name="robots" content="index, follow"/>
             </Head>
             <Component {...pageProps} />
         </NotificationProvider>

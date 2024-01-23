@@ -52,6 +52,7 @@ export default function HomePage({apiBaseUrl}: HomePageProps) {
                     <div className="text-center">
                         <div className="flex items-center justify-center space-x-2">
                             <input
+                                id={"shrunken-url"}
                                 className="text-center cursor-default border rounded p-2 bg-gray-700 text-white outline-none"
                                 readOnly
                                 type="text"

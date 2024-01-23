@@ -52,6 +52,11 @@ body {
     margin: 0 auto;
 }
 
+#shrunken-url {
+    width: 50%;
+    height: 100%;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
