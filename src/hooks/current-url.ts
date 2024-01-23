@@ -1,12 +1,15 @@
-import React, {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 export const useCurrentUrl = () => {
-    const [currentUrl, setCurrentUrl] = React.useState<string>("");
-    useEffect(() => {
-        const protocol = window.location.protocol;
-        const host = window.location.host;
+    const [currentUrl, setCurrentUrl] = useState<string>("");
+    const [currentHostname, setCurrentHostname] = useState<string>("");
 
-        setCurrentUrl(`${protocol}//${host}/`);
+    useEffect(() => {
+        const url = new URL(window.location.href);
+
+        setCurrentUrl(`${url.protocol}//${url.host}/`);
+        setCurrentHostname(url.hostname);
     }, []);
-    return currentUrl;
+
+    return [currentUrl, currentHostname];
 };

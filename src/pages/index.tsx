@@ -22,7 +22,7 @@ export default function HomePage({apiBaseUrl}: HomePageProps) {
     const onShrinkClick = useUrlShrinker(apiBaseUrl, setShrunkenUrl, fetchUrls);
 
     const [isValidUrl, setIsValidUrl] = useState<boolean>(false);
-    const currentUrl = useCurrentUrl();
+    const [currentUrl, currentHostname] = useCurrentUrl();
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-900">
@@ -37,8 +37,15 @@ export default function HomePage({apiBaseUrl}: HomePageProps) {
                         <UrlInput
                             ref={urlRef}
                             onUrlChange={(url) => {
-                                setShrunkenUrl(shrunkenUrl ? "" : shrunkenUrl);
-                                setIsValidUrl(validator.isURL(url || ""));
+                                if (shrunkenUrl) setShrunkenUrl("");
+
+                                console.log(`currentHostname: ${currentHostname}`);
+
+                                const isValid = validator.isURL(url || "");
+                                const regex = new RegExp(`^(?:https?:\\/\\/)?(?:www\\.)?${currentHostname}`);
+                                const isShortenedUrl = regex.test(url || "");
+
+                                setIsValidUrl(isValid && !isShortenedUrl);
                             }}/>
                         <button
                             className={`font-bold py-2 px-4 rounded ${isValidUrl

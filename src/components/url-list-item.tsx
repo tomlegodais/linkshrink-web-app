@@ -14,7 +14,7 @@ const formattedDate = (dateStr: string) => new Date(dateStr).toLocaleDateString(
 });
 
 export default function UrlListItem({url}: UrlListItemProps) {
-    const currentUrl = useCurrentUrl();
+    const [currentUrl, _] = useCurrentUrl();
     const redirectUrl = `${currentUrl}${url.shortUrl}`
 
     return (
